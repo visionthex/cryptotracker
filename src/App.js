@@ -9,6 +9,7 @@ import SelectCoinForm from "./Components/SelectCoinForm";
 import NavBar from "./Components/NavBar";
 import Paper from "@mui/material/Paper";
 import AlertsList from "./Components/AlertsList";
+import digiGrid from './imgsrc/VJi.gif';
 
 const App = () => {
   const [activeAlerts, setActiveAlerts] = useState([]);
@@ -78,7 +79,7 @@ const App = () => {
           />
           <Paper elevation={3}>
             <img
-              src="/VJi.gif"
+              src={digiGrid}
               alt="Banner"
               style={{ width: "100%", height: "400px" }}
             />
