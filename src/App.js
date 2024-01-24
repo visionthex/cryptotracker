@@ -60,7 +60,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Router>
+      <Router basename="/cryptotracker">
         <Box
           className="App"
           sx={{
