@@ -13,6 +13,7 @@ import {
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import TwitterIcon from "@material-ui/icons/Twitter";
+import btcImage from './img/btc.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -143,7 +144,7 @@ const Contact = () => {
         </List>
       </Grid>
       <Grid item xs={12} sm={4}>
-      <img src="../../btc.png" alt="Bitcoin" style={{ width: '165%', height: '100%', objectFit: 'cover', marginLeft: '-190px' }} />
+      <img src={btcImage} alt="Bitcoin" style={{ width: '165%', height: '100%', objectFit: 'cover', marginLeft: '-190px' }} />
       </Grid>
     </Grid>
   );
