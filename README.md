@@ -1,7 +1,5 @@
 # Crypto Tracker App
 
-[![Node.js CI](https://github.com/visionthex/sdi-blended-project2-scaffold/actions/workflows/CryptoTest.yml/badge.svg?branch=master)](https://github.com/visionthex/sdi-blended-project2-scaffold/actions/workflows/CryptoTest.yml)
-
 ## Table of Contents
 - [Description](#description)
 - [Features](#features)
