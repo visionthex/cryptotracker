@@ -28,7 +28,7 @@ Crypto Tracker is a React application designed to help users track their cryptoc
     ```
 2. Navigate to the project directory:
     ```
-    cd sdi-blended-project2-scaffold
+    cd cryptotracker
     ```
 3. Install dependencies:
     ```
