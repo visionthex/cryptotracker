@@ -24,7 +24,7 @@ Crypto Tracker is a React application designed to help users track their cryptoc
 
 1. Clone the repository:
     ```
-    git clone https://github.com/visionthex/sdi-blended-project2-scaffold
+    git clone https://github.com/visionthex/cryptotracker.git
     ```
 2. Navigate to the project directory:
     ```
