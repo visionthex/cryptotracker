@@ -4,9 +4,8 @@ import "@testing-library/jest-dom";
 import CoinTable from "./Components/coinTable";
 import SearchField from "./Components/SearchField";
 import About from "./Components/About";
-import Contact from "./Components/Contact";
 import NavBar from './Components/NavBar';
-// import BarChart from './Components/BarChart';
+import CoinChart from './Components/CoinChart';
 
 
 // This mocks the axios library **IMPORTANT** ignores Axios calls thats been causing issues
@@ -98,18 +97,3 @@ describe('Testing Navbar components', () => {
     expect(handleThemeChange).toHaveBeenCalled();
   });
 });
-
-
-//axios problem
-// describe('Testing for BarChart Components', () => {
-//   test('Renders tittle Top Ten Currency Values', () => {
-//     render(<BarChart />);
-//     const titleElement = screen.getByText('Top Ten Cryptocurrency Values');
-//     expect(titleElement).toBeInTheDocument();
-//   })
-// })
-
-
-
-
-

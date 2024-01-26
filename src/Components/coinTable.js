@@ -56,24 +56,24 @@ const CoinTable = ({ search = "" }) => {
     setOpen(false);
   };
 
-// This function is used to add commas to the numbers
-function formatNumber(num, precision) {
-  if (num === null || num === undefined) {
-    return 'N/A';
-  }
+  // This function is used to add commas to the numbers
+  function formatNumber(num, precision) {
+    if (num === null || num === undefined) {
+      return "N/A";
+    }
 
-  let [whole, fraction] = num.toString().split(".");
-  if (!fraction) return num.toString();
-  let nonZeroIndex = Array.from(fraction).findIndex((char) => char !== "0");
-  if (nonZeroIndex >= precision) {
-    let significantFraction = fraction.slice(0, nonZeroIndex + 2);
-    return `${whole}.${parseFloat(significantFraction)}`;
-  } else {
-    return Number(num)
-      .toFixed(10)
-      .replace(/\.?0+$/, "");
+    let [whole, fraction] = num.toString().split(".");
+    if (!fraction) return num.toString();
+    let nonZeroIndex = Array.from(fraction).findIndex((char) => char !== "0");
+    if (nonZeroIndex >= precision) {
+      let significantFraction = fraction.slice(0, nonZeroIndex + 2);
+      return `${whole}.${parseFloat(significantFraction)}`;
+    } else {
+      return Number(num)
+        .toFixed(10)
+        .replace(/\.?0+$/, "");
+    }
   }
-}
 
   // This funcation is used to make sure the price is formatted correctly
   function formatPrice(price) {
@@ -185,14 +185,17 @@ function formatNumber(num, precision) {
   function formatCoinPrice(price) {
     let decimalPlaces = 2;
     if (price < 1) {
-        while (price < 1) {
-            decimalPlaces++;
-            price *= 10;
-        }
+      while (price < 1) {
+        decimalPlaces++;
+        price *= 10;
+      }
     }
-    price = (price / Math.pow(10, decimalPlaces - 2));
-    return price.toLocaleString('en-US', {minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces});
-}
+    price = price / Math.pow(10, decimalPlaces - 2);
+    return price.toLocaleString("en-US", {
+      minimumFractionDigits: decimalPlaces,
+      maximumFractionDigits: decimalPlaces,
+    });
+  }
   return (
     <div style={{ height: 400, width: "100%" }}>
       {/* You are able to add or remove items from the DataGrid here */}
@@ -215,69 +218,143 @@ function formatNumber(num, precision) {
               const coin = coinData.find((coin) => coin.id === id);
               return (
                 <div
-  key={coin.id}
-  style={{
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    margin: "20px 0"
-  }}
->
-  <div style={{ marginRight: "50px" }}>
-    <p style={{display: 'inline-block', marginRight: '10px', fontWeight: '600'}}>{coin.name}</p>
-    <p style={{display: 'inline-block', fontSize: 'small'}}>{coin.symbol}</p>
-      <div style={{display: 'flex', alignItems: 'center', marginTop: '-30px', marginBottom: '10px'}}>
-      <h2 style={{marginRight: '10px'}}>
-        ${formatCoinPrice(Number(coin.price_usd))}
-      </h2>
-        <p style={{display: 'inline-block', fontSize: 'small', color: coin.percent_change_24h < 0 ? 'red' : 'green', fontWeight: '600'}}>
-          {coin.percent_change_24h < 0 ? '↓' : '↑'} {coin.percent_change_24h}% (1d)
-        </p>
-      </div>
+                  key={coin.id}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    margin: "20px 0",
+                  }}
+                >
+                  <div style={{ marginRight: "50px" }}>
+                    <p
+                      style={{
+                        display: "inline-block",
+                        marginRight: "10px",
+                        fontWeight: "600",
+                      }}
+                    >
+                      {coin.name}
+                    </p>
+                    <p style={{ display: "inline-block", fontSize: "small" }}>
+                      {coin.symbol}
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginTop: "-30px",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <h2 style={{ marginRight: "10px" }}>
+                        ${formatCoinPrice(Number(coin.price_usd))}
+                      </h2>
+                      <p
+                        style={{
+                          display: "inline-block",
+                          fontSize: "small",
+                          color: coin.percent_change_24h < 0 ? "red" : "green",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {coin.percent_change_24h < 0 ? "↓" : "↑"}{" "}
+                        {coin.percent_change_24h}% (1d)
+                      </p>
+                    </div>
 
-      <div style={{display: 'flex', alignItems: 'center'}}>
-        <p style={{marginRight: '10px'}}>Market cap:</p>
-        <p style={{display: 'inline-block', fontSize: 'small', color: coin.percent_change_24h < 0 ? 'red' : 'green', marginRight: '10px', fontWeight: '600'}}>
-          {coin.percent_change_24h < 0 ? '↓' : '↑'} {coin.percent_change_24h}%
-        </p>
-        <p style={{fontWeight: '600'}}>${Math.floor(coin.market_cap_usd).toLocaleString()}</p>
-      </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <p style={{ marginRight: "10px" }}>Market cap:</p>
+                      <p
+                        style={{
+                          display: "inline-block",
+                          fontSize: "small",
+                          color: coin.percent_change_24h < 0 ? "red" : "green",
+                          marginRight: "10px",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {coin.percent_change_24h < 0 ? "↓" : "↑"}{" "}
+                        {coin.percent_change_24h}%
+                      </p>
+                      <p style={{ fontWeight: "600" }}>
+                        ${Math.floor(coin.market_cap_usd).toLocaleString()}
+                      </p>
+                    </div>
 
-      <div style={{display: 'flex', alignItems: 'center'}}>
-  <p style={{marginRight: '10px'}}>Volume (24h):</p>
-  <p style={{display: 'inline-block', fontSize: 'small', color: (coin.market_cap_usd / coin.volume24) < 1 ? 'red' : 'green', marginRight: '10px', fontWeight: '600'}}>
-    {(coin.market_cap_usd / coin.volume24) < 1 ? '↓' : '↑'} {((coin.market_cap_usd / coin.volume24) * 100).toFixed(2)}%
-  </p>
-  <p style={{fontWeight: '600'}}>${Math.floor(coin.volume24).toLocaleString()}</p>
-</div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <p style={{ marginRight: "10px" }}>Volume (24h):</p>
+                      <p
+                        style={{
+                          display: "inline-block",
+                          fontSize: "small",
+                          color:
+                            coin.market_cap_usd / coin.volume24 < 1
+                              ? "red"
+                              : "green",
+                          marginRight: "10px",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {coin.market_cap_usd / coin.volume24 < 1 ? "↓" : "↑"}{" "}
+                        {((coin.market_cap_usd / coin.volume24) * 100).toFixed(
+                          2,
+                        )}
+                        %
+                      </p>
+                      <p style={{ fontWeight: "600" }}>
+                        ${Math.floor(coin.volume24).toLocaleString()}
+                      </p>
+                    </div>
 
-      <div style={{display: 'flex', alignItems: 'center'}}>
-        <p style={{marginRight: '10px'}}>Volume/Market cap (24h):</p>
-        <p style={{fontWeight: '600'}}>{((coin.volume24 / coin.market_cap_usd) * 100).toFixed(2)}%</p>
-      </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <p style={{ marginRight: "10px" }}>
+                        Volume/Market cap (24h):
+                      </p>
+                      <p style={{ fontWeight: "600" }}>
+                        {((coin.volume24 / coin.market_cap_usd) * 100).toFixed(
+                          2,
+                        )}
+                        %
+                      </p>
+                    </div>
 
-      <div style={{display: 'flex', alignItems: 'center'}}>
-        <p style={{marginRight: '10px'}}>Circulating supply:</p>
-        <p style={{fontWeight: '600'}}>{Math.floor(coin.csupply).toLocaleString()} {coin.symbol}</p>
-      </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <p style={{ marginRight: "10px" }}>Circulating supply:</p>
+                      <p style={{ fontWeight: "600" }}>
+                        {Math.floor(coin.csupply).toLocaleString()}{" "}
+                        {coin.symbol}
+                      </p>
+                    </div>
 
-      <div style={{display: 'flex', alignItems: 'center'}}>
-        <p style={{marginRight: '10px'}}>Total supply:</p>
-        <p style={{fontWeight: '600'}}>{Math.floor(coin.tsupply).toLocaleString()} {coin.symbol}</p>
-      </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <p style={{ marginRight: "10px" }}>Total supply:</p>
+                      <p style={{ fontWeight: "600" }}>
+                        {Math.floor(coin.tsupply).toLocaleString()}{" "}
+                        {coin.symbol}
+                      </p>
+                    </div>
 
-      <div style={{display: 'flex', alignItems: 'center'}}>
-        <p style={{marginRight: '10px'}}>Max supply:</p>
-        <p style={{fontWeight: '600'}}>{Math.floor(coin.msupply).toLocaleString()} {coin.symbol}</p>
-      </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <p style={{ marginRight: "10px" }}>Max supply:</p>
+                      <p style={{ fontWeight: "600" }}>
+                        {Math.floor(coin.msupply).toLocaleString()}{" "}
+                        {coin.symbol}
+                      </p>
+                    </div>
 
-      <div style={{display: 'flex', alignItems: 'center'}}>
-        <p style={{marginRight: '10px'}}>Fully diluted market cap:</p>
-        <p style={{fontWeight: '600'}}>
-          ${Math.floor(coin.msupply * coin.price_usd).toLocaleString()}
-        </p>
-    </div>
-  </div>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <p style={{ marginRight: "10px" }}>
+                        Fully diluted market cap:
+                      </p>
+                      <p style={{ fontWeight: "600" }}>
+                        $
+                        {Math.floor(
+                          coin.msupply * coin.price_usd,
+                        ).toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
                   <div
                     style={{
                       flex: 1,

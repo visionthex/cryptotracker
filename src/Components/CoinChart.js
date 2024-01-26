@@ -1,71 +1,62 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { VictoryArea, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 import axios from "axios";
 
-class CoinChart extends React.Component {
-  state = {
-    positiveData: [],
-    negativeData: [],
-  };
+const CoinChart = ({ coinId }) => {
+  const [positiveData, setPositiveData] = useState([]);
+  const [negativeData, setNegativeData] = useState([]);
 
-  fetchCoinData = () => {
-    axios
-      .get(`https://api.coinlore.net/api/coin/markets/?id=${this.props.coinId}`)
-      .then((response) => {
-        if (response.data.length === 0) {
-          // API did not return any data
-          this.setState({ positiveData: [], negativeData: [] });
-          return;
-        }
-
-        const positiveData = [];
-        const negativeData = [];
-
-        response.data.forEach((item) => {
-          const value = parseFloat(item.price_usd);
-          const dataItem = { name: item.time, value };
-
-          if (value >= 0) {
-            positiveData.push(dataItem);
-          } else {
-            negativeData.push(dataItem);
+  useEffect(() => {
+    const fetchCoinData = () => {
+      axios
+        .get(`https://api.coinlore.net/api/coin/markets/?id=${coinId}`)
+        .then((response) => {
+          if (response.data.length === 0) {
+            // API did not return any data
+            setPositiveData([]);
+            setNegativeData([]);
+            return;
           }
+
+          const positiveData = [];
+          const negativeData = [];
+
+          response.data.forEach((item) => {
+            const value = parseFloat(item.price_usd);
+            const dataItem = { name: item.time, value };
+
+            if (value >= 0) {
+              positiveData.push(dataItem);
+            } else {
+              negativeData.push(dataItem);
+            }
+          });
+
+          setPositiveData(positiveData);
+          setNegativeData(negativeData);
+        })
+        .catch((error) => {
+          console.error(error);
+          // Handle errors in fetching data
+          setPositiveData([]);
+          setNegativeData([]);
         });
+    };
 
-        this.setState({ positiveData, negativeData });
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle errors in fetching data
-        this.setState({ positiveData: [], negativeData: [] });
-      });
-  };
+    fetchCoinData();
+    const interval = setInterval(fetchCoinData, 10000);
+    return () => clearInterval(interval); // cleanup on unmount
+  }, [coinId]); // re-run effect when coinId changes
 
-  componentDidMount() {
-    this.fetchCoinData();
-    this.interval = setInterval(this.fetchCoinData, 10000);
-  }
+  // Calculate min and max values
+  const allValues = [...positiveData, ...negativeData].map(item => item.value);
+  const minValue = Math.min(...allValues);
+  const maxValue = Math.max(...allValues);
+  const adjustedMinValue = minValue - (0.1 * Math.abs(minValue));
 
-  componentDidUpdate(prevProps) {
-    if (this.props.coinId !== prevProps.coinId) {
-      this.fetchCoinData();
-    }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  render() {
-    // Calculate min and max values
-    const allValues = [...this.state.positiveData, ...this.state.negativeData].map(item => item.value);
-    const minValue = Math.min(...allValues);
-    const maxValue = Math.max(...allValues);
-    const adjustedMinValue = minValue - (0.1 * Math.abs(minValue));
-
-    return (
+  return (
     <div>
-        {/* This is where you can adjust he charts values as needed */}
+        {/* This is where you can adjust the charts values as needed */}
         <VictoryChart
           theme={VictoryTheme.material}
           width={800}
@@ -89,21 +80,20 @@ class CoinChart extends React.Component {
 
           {/* This will change the color of the chart under the line to red or green depending on the value */}
           <VictoryArea
-            data={this.state.positiveData}
+            data={positiveData}
             x="name"
             y="value"
             style={{ data: { fill: "green", stroke: "green", fillOpacity: 0.3 } }} // Fill the area under the line
           />
           <VictoryArea
-            data={this.state.negativeData}
+            data={negativeData}
             x="name"
             y="value"
             style={{ data: { fill: "red", stroke: "red", fillOpacity: 0.3 } }} // Fill the area under the line
           />
         </VictoryChart>
       </div>
-    );
-  }
-}
+  );
+};
 
 export default CoinChart;

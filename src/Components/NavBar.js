@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,7 +11,6 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useEffect } from "react";
 import SearchField from "./SearchField";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -62,28 +61,28 @@ const NavBar = ({
   }, [darkMode]);
 
   return (
-    <Box style={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar>
-          <div style={{ paddingRight: "20px" }}>CRYPTO TRACKER</div>
+          <Box sx={{ paddingRight: "20px" }}>CRYPTO TRACKER</Box>
           <SearchField search={search} setSearch={setSearch} />
-          <Box style={{ display: "flex", marginLeft: "auto" }}>
-            <IconButton onClick={handleThemeChange} style={{ color: "#fff" }} aria-label="Toggle Dark Mode">
+          <Box sx={{ display: "flex", marginLeft: "auto" }}>
+            <IconButton onClick={handleThemeChange} sx={{ color: "#fff" }} aria-label="Toggle Dark Mode">
               {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
-            <IconButton onClick={onNotificationClick} style={{ color: "#fff" }}>
+            <IconButton onClick={onNotificationClick} sx={{ color: "#fff" }}>
               <Badge badgeContent={notificationCount} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
             <IconButton
               onClick={() => handleMenuClose("/graph")}
-              style={{ color: "#fff" }}
+              sx={{ color: "#fff" }}
             >
               <ShowChartIcon />
             </IconButton>
-            <IconButton onClick={handleMenuClick} style={{ color: "#fff" }}>
+            <IconButton onClick={handleMenuClick} sx={{ color: "#fff" }}>
               <MenuIcon />
             </IconButton>
             <Menu
@@ -91,12 +90,12 @@ const NavBar = ({
               open={Boolean(anchorEl)}
               onClose={() => handleMenuClose(null)}
             >
-              {navItems.map((item) => (
+              {navItems.map(({ label, path }) => (
                 <MenuItem
-                  key={item.label}
-                  onClick={() => handleMenuClose(item.path)}
+                  key={label}
+                  onClick={() => handleMenuClose(path)}
                 >
-                  {item.label}
+                  {label}
                 </MenuItem>
               ))}
             </Menu>

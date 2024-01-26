@@ -9,7 +9,7 @@ import SelectCoinForm from "./Components/SelectCoinForm";
 import NavBar from "./Components/NavBar";
 import Paper from "@mui/material/Paper";
 import AlertsList from "./Components/AlertsList";
-import digiGrid from './imgsrc/VJi.gif';
+import digiGrid from "./imgsrc/VJi.gif";
 
 const App = () => {
   const [activeAlerts, setActiveAlerts] = useState([]);
@@ -21,7 +21,7 @@ const App = () => {
   const [alertCoin, setAlertCoin] = useState(null); // Added
 
   const toggleAlertsList = () => {
-    setShowAlertsList(!showAlertsList)
+    setShowAlertsList(!showAlertsList);
   };
 
   const theme = createTheme({
@@ -39,24 +39,31 @@ const App = () => {
       for (let coin of selectedCoins) {
         const currentPrice = await fetchCurrentPrice(coin.id);
         if (currentPrice && currentPrice <= coin.targetPrice) {
-          setActiveAlerts(prevAlerts => [...prevAlerts, { ...coin, currentPrice }]);
+          setActiveAlerts((prevAlerts) => [
+            ...prevAlerts,
+            { ...coin, currentPrice },
+          ]);
           setAlertCoin(coin); // Added
           setShowModal(true); // Added
-          break;  // Exit loop after triggering one alert
+          break; // Exit loop after triggering one alert
         }
       }
     };
 
-    const interval = setInterval(checkPrices, 10000);  // Check every 10 seconds
+    const interval = setInterval(checkPrices, 10000); // Check every 10 seconds
     return () => clearInterval(interval);
   }, [selectedCoins]);
 
   const addCoinAlert = (coin) => {
-    setSelectedCoins(prevCoins => [...prevCoins, { ...coin, targetPrice: parseFloat(coin.targetPrice) }]);
+    setSelectedCoins((prevCoins) => [
+      ...prevCoins,
+      { ...coin, targetPrice: parseFloat(coin.targetPrice) },
+    ]);
   };
 
-  const handleCloseModal = () => { // Renamed from handleCloseAlert
-    setShowModal(false);  // Close the modal
+  const handleCloseModal = () => {
+    // Renamed from handleCloseAlert
+    setShowModal(false); // Close the modal
   };
 
   return (
@@ -113,7 +120,7 @@ const App = () => {
       </Router>
     </ThemeProvider>
   );
-
 };
 
 export default App;
+
