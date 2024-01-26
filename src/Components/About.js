@@ -1,7 +1,10 @@
+// Importing necessary libraries and components
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Box, Link } from '@mui/material';
+import { Typography, Box } from '@mui/material';
+import Link from '@mui/material/Link';
 
+// Defining the styles for this component
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(3),
@@ -22,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// About component
 const About = () => {
   const classes = useStyles();
 
@@ -57,17 +61,18 @@ const About = () => {
       <Typography paragraph>
         Thanks to the following people who have contributed to this project:
       </Typography>
-      <Link href="https://github.com/visionthex/sdi-blended-project2-scaffold/graphs/contributors">
+      <Link href="https://github.com/visionthex/cryptotracker/graphs/contributors">
         <img src="https://contrib.rocks/image?repo=visionthex/admin_console" alt="Contributors" />
       </Link>
-      <Link href="https://github.com/visionthex/sdi-blended-project2-scaffold/graphs/contributors">
+      <Link href="https://github.com/visionthex/cryptotracker/graphs/contributors">
         <img src="https://contrib.rocks/image?repo=EddieLicaycay/To-Do-List" alt="Contributors" />
       </Link>
-      <Link href="https://github.com/visionthex/sdi-blended-project2-scaffold/graphs/contributors">
+      <Link href="https://github.com/visionthex/cryptotracker/graphs/contributors">
         <img src="https://contrib.rocks/image?repo=WalkerB20/todo-list-workshop-main" alt="Contributors" />
       </Link>
     </div>
   );
 };
 
+// Exporting the About component
 export default About;

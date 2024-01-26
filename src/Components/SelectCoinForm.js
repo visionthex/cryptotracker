@@ -55,7 +55,7 @@ const SelectCoinForm = ({ onAddCoin }) => {
                 setSelectedCoin(newValue);
               }}
               options={coins}
-              getOptionLabel={(option) => option.name}
+              getOptionLabel={({ name }) => name}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -70,7 +70,7 @@ const SelectCoinForm = ({ onAddCoin }) => {
             <TextField
               type="number"
               value={targetPrice}
-              onChange={(e) => setTargetPrice(e.target.value)}
+              onChange={({ target: { value } }) => setTargetPrice(value)}
               label="Target Price"
               variant="outlined"
               fullWidth

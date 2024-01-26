@@ -66,16 +66,16 @@ const Contact = () => {
           <Typography variant="h4" component="h1">
             CONTRIBUTORS:
           </Typography>
-          {contributors.map((contributor, index) => (
-            <ListItem alignItems="flex-start" key={contributor.github}>
+          {contributors.map(({ name, role, contribution, github, linkedin, twitter, avatar }, index) => (
+            <ListItem alignItems="flex-start" key={github}>
               <ListItemAvatar>
                 <Avatar
-                  alt={`${contributor.name}'s profile picture`}
-                  src={contributor.avatar}
+                  alt={`${name}'s profile picture`}
+                  src={avatar}
                 />
               </ListItemAvatar>
               <ListItemText
-                primary={contributor.name}
+                primary={name}
                 secondary={
                   <React.Fragment>
                     <Typography
@@ -84,7 +84,7 @@ const Contact = () => {
                       className={classes.inline}
                       color="textPrimary"
                     >
-                      Role: {contributor.role}
+                      Role: {role}
                     </Typography>
                     <Typography
                       component="span"
@@ -92,7 +92,7 @@ const Contact = () => {
                       className={classes.inline}
                       color="textPrimary"
                     >
-                      Contribution: {contributor.contribution}
+                      Contribution: {contribution}
                     </Typography>
                     <Box component="span" display="block">
                       <Typography
@@ -104,7 +104,7 @@ const Contact = () => {
                         Socials:
                         <Box component="span" display="flex" alignItems="center">
                           <a
-                            href={contributor.github}
+                            href={github}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -114,7 +114,7 @@ const Contact = () => {
                             </Box>
                           </a>
                           <a
-                            href={contributor.linkedin}
+                            href={linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -124,7 +124,7 @@ const Contact = () => {
                             </Box>
                           </a>
                           <a
-                            href={contributor.twitter}
+                            href={twitter}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   LineChart,
   Label,
@@ -13,40 +13,33 @@ import {
 import { ResponsiveContainer } from "recharts";
 import axios from "axios";
 
-class CustomizedLegend extends React.Component {
-  render() {
-    return (
-      <div>
-        <span style={{ color: 'green' }}>• Value Increase</span><br/>
-        <span style={{ color: 'red' }}>• Value Decrease</span>
-      </div>
-    );
+// Customized legend component
+const CustomizedLegend = () => (
+  <div>
+    <span style={{ color: 'green' }}>• Value Increase</span><br/>
+    <span style={{ color: 'red' }}>• Value Decrease</span>
+  </div>
+);
+
+// Customized dot component
+const CustomizedDot = ({ cx, cy, payload }) => {
+  let fill;
+  if (payload.value > 0) {
+    fill = "green";
+  } else if (payload.value < 0) {
+    fill = "red";
+  } else {
+    fill = "#8884d8";
   }
-}
 
-class CustomizedDot extends React.Component {
-  render() {
-    const { cx, cy, payload } = this.props;
+  return <Dot cx={cx} cy={cy} r={6} fill={fill} />;
+};
 
-    let fill;
-    if (payload.value > 0) {
-      fill = "green";
-    } else if (payload.value < 0) {
-      fill = "red";
-    } else {
-      fill = "#8884d8";
-    }
+// Bar chart component
+const BarChart = () => {
+  const [data, setData] = useState([]);
 
-    return <Dot cx={cx} cy={cy} r={6} fill={fill} />;
-  }
-}
-
-class BarChart extends React.Component {
-  state = {
-    data: [],
-  };
-
-  fetchData = () => {
+  const fetchData = () => {
     axios
       .get("https://api.coinlore.net/api/tickers/")
       .then((response) => {
@@ -57,29 +50,25 @@ class BarChart extends React.Component {
           }))
           .sort((a, b) => b.value - a.value)
           .slice(0, 10);
-        this.setState({ data });
+        setData(data);
       })
       .catch((error) => console.error(error));
   };
 
-  componentDidMount() {
-    this.fetchData();
-    this.interval = setInterval(this.fetchData, 10000);
-  }
+  useEffect(() => {
+    fetchData();
+    const interval = setInterval(fetchData, 10000);
+    return () => clearInterval(interval); // cleanup on unmount
+  }, []);
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  render() {
-    return (
-      <div style={{ width: '100%', height: '50vh' }}>
-        <h2>Top Ten Cryptocurrency Values</h2>
-        <ResponsiveContainer width='100%' height='90%'>
+  return (
+    <div style={{ width: '100%', height: '50vh' }}>
+      <h2>Top Ten Cryptocurrency Values</h2>
+      <ResponsiveContainer width='100%' height='90%'>
         <LineChart
           width={1000}
           height={600}
-          data={this.state.data}
+          data={data}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -99,10 +88,9 @@ class BarChart extends React.Component {
             activeDot={{ r: 8 }}
           />
         </LineChart>
-        </ResponsiveContainer>
-      </div>
-    );
-  }
-}
+      </ResponsiveContainer>
+    </div>
+  );
+};
 
 export default BarChart;

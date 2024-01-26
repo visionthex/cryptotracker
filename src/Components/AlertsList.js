@@ -5,9 +5,9 @@ const AlertsList = ({ alerts, onClose }) => {
     <div className="alerts-list">
       <button onClick={onClose}>Close</button>
       <ul>
-        {alerts.map((alert, index) => (
+        {alerts.map(({ name, targetPrice }, index) => (
           <li key={index}>
-            {alert.name} reached target price of ${alert.targetPrice}
+            {name} reached target price of ${targetPrice}
           </li>
         ))}
       </ul>
