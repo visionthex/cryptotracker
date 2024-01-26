@@ -42,17 +42,8 @@ Crypto Tracker is a React application designed to help users track their cryptoc
 ## Usage
 
 After starting the app, navigate to the main page to add cryptocurrencies to your portfolio. You can start tracking their prices in real-time on the dashboard. Set alerts to get notified when a cryptocurrency reaches a certain price. Use the search bar in the NavBar to find specific cryptocurrencies.
-
-## Contributors
-
-Thanks to the following people who have contributed to this project:
-
-<a href="https://github.com/visionthex/sdi-blended-project2-scaffold/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=visionthex/admin_console" />
-    <img src="https://contrib.rocks/image?repo=EddieLicaycay/To-Do-List" />
-    <img src="https://contrib.rocks/image?repo=WalkerB20/todo-list-workshop-main" />
-</a>
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
+
+2024
