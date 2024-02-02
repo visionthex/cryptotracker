@@ -68,7 +68,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Router basename="/cryptotracker">
+      <Router basename={process.env.PUBLIC_URL}>
         <Box
           className="App"
           sx={{
