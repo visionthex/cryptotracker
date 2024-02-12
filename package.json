@@ -12,7 +12,7 @@
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.15.7",
     "@mui/material": "^5.15.6",
-    "@mui/styled-engine": "^5.15.7",
+    "@mui/styled-engine": "^5.15.9",
     "@mui/styled-engine-sc": "^6.0.0-alpha.13",
     "@mui/system": "^5.15.5",
     "@mui/x-charts": "^6.19.1",
