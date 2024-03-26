@@ -28,7 +28,7 @@
     "recharts": "^2.11.0",
     "styled-components": "^6.1.8",
     "victory": "^36.9.1",
-    "web-vitals": "^3.5.1"
+    "web-vitals": "^3.5.2"
   },
   "scripts": {
     "start": "react-scripts start",
